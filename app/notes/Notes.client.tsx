@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchNotes } from '../../lib/api';
 
-import NoteList from '../../src/components/NoteList/NoteList';
-import Pagination from '../../src/components/Pagination/Pagination';
-import SearchBox from '../../src/components/SearchBox/SearchBox';
-import Modal from '../../src/components/Modal/Modal';
-import NoteForm from '../../src/components/NoteForm/NoteForm';
+import NoteList from '../../components/NoteList/NoteList';
+import Pagination from '../../components/Pagination/Pagination';
+import SearchBox from '../../components/SearchBox/SearchBox';
+import Modal from '../../components/Modal/Modal';
+import NoteForm from '../../components/NoteForm/NoteForm';
 
 import css from './page.module.css';
 

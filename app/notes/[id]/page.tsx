@@ -3,21 +3,23 @@ import { fetchNoteById } from '@/lib/api';
 import NoteDetailsClient from './NoteDetails.client';
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function Page({ params }: Props) {
-  const client = new QueryClient();
+export default async function NoteDetailsPage({ params }: Props) {
+  const { id } = await params;
 
-  await client.prefetchQuery({
-    queryKey: ['note', params.id],
-    queryFn: () => fetchNoteById(params.id),
+  const qc = new QueryClient();
+
+  await qc.prefetchQuery({
+    queryKey: ['note', id],
+    queryFn: () => fetchNoteById(id),
   });
 
   return (
-    <HydrationBoundary state={dehydrate(client)}>
+    <HydrationBoundary state={dehydrate(qc)}>
       <NoteDetailsClient />
     </HydrationBoundary>
   );

@@ -1,24 +1,22 @@
-import css from './page.module.css';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { fetchNotes } from '@/lib/api';
+import NotesClient from './Notes.client';
 
-export default function HomePage() {
+export default async function NotesPage() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ['notes', 1, ''],
+    queryFn: () =>
+      fetchNotes({
+        page: 1,
+        perPage: 12,
+      }),
+  });
+
   return (
-    <main>
-      <div className={css.container}>
-        <h1 className={css.title}>Welcome to NoteHub</h1>
-
-        <p className={css.description}>
-          NoteHub is a simple and efficient application designed for managing
-          personal notes. It helps keep your thoughts organized and accessible
-          in one place, whether you are at home or on the go.
-        </p>
-
-        <p className={css.description}>
-          The app provides a clean interface for writing, editing, and browsing
-          notes. With support for keyword search and structured organization,
-          NoteHub offers a streamlined experience for anyone who values clarity
-          and productivity.
-        </p>
-      </div>
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NotesClient />
+    </HydrationBoundary>
   );
 }

@@ -30,15 +30,18 @@ export default function NotesClient() {
     debounced(value);
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['notes', page, debouncedSearch],
-    queryFn: () =>
-      fetchNotes({
-        page,
-        perPage: 12,
-        search: debouncedSearch || undefined,
-      }),
-  });
+ const { data, isLoading, error } = useQuery({
+  queryKey: ['notes', page, debouncedSearch],
+  queryFn: () =>
+    fetchNotes({
+      page,
+      perPage: 12,
+      search: debouncedSearch,
+    }),
+
+  placeholderData: previous => previous,
+});
+
 
   if (isLoading) return <p>Loading, please wait...</p>;
   if (error || !data) return <p>Something went wrong.</p>;

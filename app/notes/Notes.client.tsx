@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchNotes } from '../../src/lib/api';
+import { fetchNotes } from '../../lib/api';
 
 import NoteList from '../../src/components/NoteList/NoteList';
 import Pagination from '../../src/components/Pagination/Pagination';
